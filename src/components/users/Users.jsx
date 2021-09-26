@@ -13,13 +13,28 @@ import {
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
-function Users() {
+function Users({ submit, setSubmit }) {
 	const [apiData, setApiData] = useState([]);
+
 	useEffect(() => {
 		axios.get('http://localhost:8000/v1/users/all-users').then(data => {
 			setApiData(data.data.data);
+			setSubmit(false);
 		});
-	}, []);
+		//eslint-disable-next-line
+	}, [submit]);
+
+	const handleForm = id => {
+		return e => {
+			e.preventDefault();
+
+			axios
+				.delete(`http://localhost:8000/v1/users/delete-user/${id}`)
+				.then(() => {
+					setSubmit(true);
+				});
+		};
+	};
 
 	return (
 		<main>
@@ -44,23 +59,14 @@ function Users() {
 								<TableCell align='right'>{data.email}</TableCell>
 								<TableCell align='right'>{data._id}</TableCell>
 								<TableCell align='right'>
-									<DeleteIcon />
+									<form onSubmit={handleForm(data._id)}>
+										<button type='submit'>
+											<DeleteIcon />
+										</button>
+									</form>
 								</TableCell>
 							</TableRow>
 						))}
-
-						{/* {rows.map(row => (
-							<TableRow
-								key={row.name}
-								sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-							>
-								<TableCell component='th' scope='row'>
-									{row.name}
-								</TableCell>
-								<TableCell align='right'>{row.calories}</TableCell>
-								<TableCell align='right'>{row.fat}</TableCell>
-							</TableRow>
-						))} */}
 					</TableBody>
 				</Table>
 			</TableContainer>
