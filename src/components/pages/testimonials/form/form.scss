@@ -1,11 +1,13 @@
-section {
-	display: flex;
+@import '../../../../styles/utilities';
+
+.form-section {
+	display: flex !important;
 	justify-content: center;
 }
 
-form {
+.form {
 	width: 80% !important;
-   text-align: center;
+	text-align: center;
 
 	& > div {
 		margin: 1rem 0 !important;

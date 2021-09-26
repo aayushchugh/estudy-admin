@@ -13,6 +13,9 @@ import {
 
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import { BSecondary } from '../../uiComponents/Btn';
+import { ASuccess, AError } from '../../uiComponents/Alert';
+
 function Users({ submit, setSubmit }) {
 	const [apiData, setApiData] = useState([]);
 
@@ -30,15 +33,34 @@ function Users({ submit, setSubmit }) {
 
 			axios
 				.delete(`http://localhost:8000/v1/users/delete-user/${id}`)
-				.then(() => {
+				.then(data => {
 					setSubmit(true);
+
+					if (data.data.status === 200) {
+						document
+							.querySelector('.table__alert--success')
+							.classList.remove('hidden');
+					} else if (data.data.status === 400) {
+						document
+							.querySelector('.table__alert--error')
+							.classList.remove('hidden');
+					}
 				});
 		};
 	};
 
+	// ! Css for this table is coming from table.scss from testimonials
+
 	return (
 		<>
-			<TableContainer component={Paper}>
+			<TableContainer className='table' component={Paper}>
+				<ASuccess className='table__alert table__alert--success hidden'>
+					Successfully deleted user
+				</ASuccess>
+				<AError className='table__alert table__alert--error hidden'>
+					invalid id
+				</AError>
+
 				<Table sx={{ minWidth: 650 }} aria-label='simple table'>
 					<TableHead>
 						<TableRow>
@@ -60,9 +82,9 @@ function Users({ submit, setSubmit }) {
 								<TableCell align='right'>{data._id}</TableCell>
 								<TableCell align='right'>
 									<form onSubmit={handleForm(data._id)}>
-										<button type='submit'>
+										<BSecondary type='submit'>
 											<DeleteIcon />
-										</button>
+										</BSecondary>
 									</form>
 								</TableCell>
 							</TableRow>
