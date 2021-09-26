@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { CssBaseline } from '@mui/material';
 
-import Users from './components/users/Users';
 import Nav from './components/layout/Nav';
+import User from './components/routes/User';
+import Testimonials from './components/routes/Testimonials';
 
 function App() {
-	const [formSubmit, setFormSubmit] = useState(false);
-
 	return (
 		<>
 			<CssBaseline />
@@ -15,7 +14,11 @@ function App() {
 				<Nav />
 
 				<Route path='/' exact>
-					<Users setSubmit={setFormSubmit} submit={formSubmit} />
+					<User />
+				</Route>
+
+				<Route path='/testimonials' exact>
+					<Testimonials />
 				</Route>
 			</Router>
 		</>

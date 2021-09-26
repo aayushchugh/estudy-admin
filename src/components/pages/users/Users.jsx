@@ -37,7 +37,7 @@ function Users({ submit, setSubmit }) {
 	};
 
 	return (
-		<main>
+		<>
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }} aria-label='simple table'>
 					<TableHead>
@@ -70,7 +70,7 @@ function Users({ submit, setSubmit }) {
 					</TableBody>
 				</Table>
 			</TableContainer>
-		</main>
+		</>
 	);
 }
 

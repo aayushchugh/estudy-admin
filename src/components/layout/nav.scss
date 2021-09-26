@@ -1,0 +1,19 @@
+@import '../../styles/variables';
+
+nav {
+	border-bottom: $border-primary;
+	margin-bottom: 2rem;
+}
+
+ul {
+	display: flex;
+	list-style: none;
+
+	a {
+		text-decoration: none;
+	}
+
+	li {
+		margin: 0 1rem;
+	}
+}

@@ -1,14 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { BSecondary } from '../uiComponents/Btn';
+
+import './nav.scss';
+
 function Nav() {
 	return (
 		<header>
 			<nav>
 				<ul>
-					<Link to='/'>
-						<li>users</li>
-					</Link>
+					<li>
+						<Link to='/'>
+							<BSecondary>users</BSecondary>
+						</Link>
+					</li>
+
+					<li>
+						<Link to='/testimonials'>
+							<BSecondary>testimonials</BSecondary>
+						</Link>
+					</li>
 				</ul>
 			</nav>
 		</header>

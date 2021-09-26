@@ -1,0 +1,11 @@
+@import '../../styles/variables';
+
+.btn-primary {
+	background-color: $color-primary !important;
+	color: $color-white !important;
+}
+
+.btn-secondary {
+	border: $border-primary !important;
+	color: $color-primary !important;
+}

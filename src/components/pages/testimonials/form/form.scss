@@ -1,0 +1,13 @@
+section {
+	display: flex;
+	justify-content: center;
+}
+
+form {
+	width: 80% !important;
+   text-align: center;
+
+	& > div {
+		margin: 1rem 0 !important;
+	}
+}
