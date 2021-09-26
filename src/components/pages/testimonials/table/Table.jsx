@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import {
@@ -72,6 +73,7 @@ function TestimonialsTable({ submit, setSubmit }) {
 							<TableCell align='right'>Rating</TableCell>
 						</TableRow>
 					</TableHead>
+
 					<TableBody>
 						{apiData.map(data => (
 							<TableRow
@@ -97,11 +99,11 @@ function TestimonialsTable({ submit, setSubmit }) {
 								</TableCell>
 
 								<TableCell align='right' className='table__icon'>
-									<form>
-										<BSecondary type='submit'>
+									<Link to={`/testimonials/update/${data._id}`}>
+										<BSecondary>
 											<CreateIcon />
 										</BSecondary>
-									</form>
+									</Link>
 								</TableCell>
 							</TableRow>
 						))}
