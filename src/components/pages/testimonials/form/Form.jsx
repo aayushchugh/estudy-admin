@@ -16,34 +16,50 @@ function Form({ setSubmit }) {
 	const submitHandler = e => {
 		e.preventDefault();
 
-		axios
-			.post('http://localhost:8000/v1/testimonial/add', {
-				name: name,
-				content: content,
-				rating: rating,
-			})
-			.then(data => {
-				document.querySelectorAll('input').forEach(el => {
-					el.value = '';
-				});
-				setSubmit(true);
+		if (rating >= 0 && rating <= 5) {
+			axios
+				.post('http://localhost:8000/v1/testimonial/add', {
+					name: name,
+					content: content,
+					rating: rating,
+				})
+				.then(data => {
+					document.querySelectorAll('input').forEach(el => {
+						el.value = '';
+					});
+					setSubmit(true);
 
-				if (data.data.status === 201) {
-					document.querySelector('.success-alert').classList.remove('hidden');
-				} else if (data.data.status === 500) {
-					document.querySelector('.error-alert').classList.remove('hidden');
-				}
-			});
+					if (data.data.status === 201) {
+						document
+							.querySelector('.form__alert--success')
+							.classList.remove('hidden');
+					} else if (data.data.status === 500) {
+						document
+							.querySelector('.form__alert--went-wrong')
+							.classList.remove('hidden');
+					}
+				});
+		} else {
+			document
+				.querySelector('.form__alert--rating-between-0-5')
+				.classList.remove('hidden');
+		}
 	};
 
 	return (
 		<section className='form-section'>
 			<form className='form' onSubmit={submitHandler}>
-				<ASuccess className='success-alert hidden'>
+				<ASuccess className='form__alert--success hidden'>
 					Successfully added new testimonial
 				</ASuccess>
 
-				<AError className='error-alert hidden'>something went wrong</AError>
+				<AError className='form__alert--went-wrong hidden'>
+					something went wrong
+				</AError>
+
+				<AError className='form__alert--rating-between-0-5 hidden'>
+					Rating must be between 0 and 5
+				</AError>
 
 				<TextField
 					onChange={e => setName(e.target.value)}
