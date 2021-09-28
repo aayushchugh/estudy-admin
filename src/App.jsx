@@ -6,6 +6,7 @@ import Nav from './components/layout/Nav';
 import User from './components/routes/User';
 import Testimonials from './components/routes/Testimonials';
 import UpdateTestimonial from './components/routes/UpdateTestimonial';
+import UpdateEmailList from './components/routes/UpdateEmailList';
 
 function App() {
 	return (
@@ -24,6 +25,10 @@ function App() {
 
 				<Route path='/testimonials/update/:id' exact>
 					<UpdateTestimonial />
+				</Route>
+
+				<Route path='/update-email-list' exact>
+					<UpdateEmailList />
 				</Route>
 			</Router>
 		</>
