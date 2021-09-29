@@ -7,6 +7,7 @@ import User from './components/routes/User';
 import Testimonials from './components/routes/Testimonials';
 import UpdateTestimonial from './components/routes/UpdateTestimonial';
 import UpdateEmailList from './components/routes/UpdateEmailList';
+import Contacts from './components/routes/Contacts';
 
 function App() {
 	return (
@@ -29,6 +30,10 @@ function App() {
 
 				<Route path='/update-email-list' exact>
 					<UpdateEmailList />
+				</Route>
+
+				<Route path='/contacts' exact>
+					<Contacts />
 				</Route>
 			</Router>
 		</>

@@ -67,6 +67,7 @@ function Users({ submit, setSubmit }) {
 							<TableCell>Name</TableCell>
 							<TableCell align='right'>Email</TableCell>
 							<TableCell align='right'>Id</TableCell>
+							<TableCell align='right'>delete</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>

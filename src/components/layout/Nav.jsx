@@ -27,6 +27,12 @@ function Nav() {
 							<BSecondary>update email list</BSecondary>
 						</Link>
 					</li>
+
+					<li>
+						<Link to='/contacts'>
+							<BSecondary>contacts</BSecondary>
+						</Link>
+					</li>
 				</ul>
 			</nav>
 		</header>

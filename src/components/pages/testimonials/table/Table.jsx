@@ -23,12 +23,10 @@ function TestimonialsTable({ submit, setSubmit }) {
 	const [apiData, setApiData] = useState([]);
 
 	useEffect(() => {
-		axios
-			.get('http://localhost:8000/v1/testimonial/all-testimonials')
-			.then(data => {
-				setApiData(data.data.data);
-				setSubmit(false);
-			});
+		axios.get('http://localhost:8000/v1/testimonial/get-all').then(data => {
+			setApiData(data.data.data);
+			setSubmit(false);
+		});
 		//eslint-disable-next-line
 	}, [submit]);
 
@@ -71,6 +69,8 @@ function TestimonialsTable({ submit, setSubmit }) {
 							<TableCell>Name</TableCell>
 							<TableCell align='right'>Content</TableCell>
 							<TableCell align='right'>Rating</TableCell>
+							<TableCell align='right'>delete</TableCell>
+							<TableCell align='right'>update</TableCell>
 						</TableRow>
 					</TableHead>
 
