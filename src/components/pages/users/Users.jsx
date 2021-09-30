@@ -49,7 +49,7 @@ function Users({ submit, setSubmit }) {
 		};
 	};
 
-	// ! Css for this table is coming from table.scss from testimonials
+	// WARNING: Css for this table is coming from table.scss from testimonials
 
 	return (
 		<>
@@ -66,6 +66,7 @@ function Users({ submit, setSubmit }) {
 						<TableRow>
 							<TableCell>Name</TableCell>
 							<TableCell align='right'>Email</TableCell>
+							<TableCell align='right'>class</TableCell>
 							<TableCell align='right'>Id</TableCell>
 							<TableCell align='right'>delete</TableCell>
 						</TableRow>
@@ -80,6 +81,7 @@ function Users({ submit, setSubmit }) {
 									{data.name}
 								</TableCell>
 								<TableCell align='right'>{data.email}</TableCell>
+								<TableCell align='right'>{data.class}</TableCell>
 								<TableCell align='right'>{data._id}</TableCell>
 								<TableCell align='right'>
 									<form onSubmit={handleForm(data._id)}>
