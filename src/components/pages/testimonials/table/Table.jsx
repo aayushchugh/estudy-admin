@@ -39,7 +39,7 @@ function TestimonialsTable({ submit, setSubmit }) {
 				.then(data => {
 					setSubmit(true);
 
-					if (data.data.status === 204) {
+					if (data.data.status === 200) {
 						document
 							.querySelector('.table__alert--success')
 							.classList.remove('hidden');

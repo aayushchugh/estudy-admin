@@ -46,7 +46,7 @@ function Contacts() {
 			.then(data => {
 				setSubmit(true);
 
-				if (data.data.status === 204) {
+				if (data.data.status === 200) {
 					document
 						.querySelector('.contacts__alert--success-update')
 						.classList.remove('hidden');
@@ -69,7 +69,7 @@ function Contacts() {
 					console.log(data.data);
 					console.log(e.target.id.value);
 
-					if (data.data.status === 204) {
+					if (data.data.status === 200) {
 						document
 							.querySelector('.contacts__alert--success-delete')
 							.classList.remove('hidden');
