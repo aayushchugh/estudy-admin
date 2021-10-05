@@ -17,9 +17,13 @@ function UpdateEmailList() {
 	const [apiData, setApiData] = useState([]);
 
 	useEffect(() => {
-		axios.get('http://localhost:8000/v1/updateEmailList/get-all').then(data => {
-			setApiData(data.data.data);
-		});
+		axios
+			.get(
+				`http://localhost:8000/v1/updateEmailList/get-all?auth=${process.env.REACT_APP_API_AUTH}`
+			)
+			.then(data => {
+				setApiData(data.data.data);
+			});
 	}, []);
 
 	return (

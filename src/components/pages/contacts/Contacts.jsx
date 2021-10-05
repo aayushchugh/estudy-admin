@@ -28,10 +28,14 @@ function Contacts() {
 	const [status, setStatus] = useState('');
 
 	useEffect(() => {
-		axios.get('http://localhost:8000/v1/contact-us/get-all').then(data => {
-			setApiData(data.data.data);
-			setSubmit(false);
-		});
+		axios
+			.get(
+				`http://localhost:8000/v1/contact-us/get-all?auth=${process.env.REACT_APP_API_AUTH}`
+			)
+			.then(data => {
+				setApiData(data.data.data);
+				setSubmit(false);
+			});
 		//eslint-disable-next-line
 	}, [submit]);
 
@@ -39,10 +43,13 @@ function Contacts() {
 		e.preventDefault();
 
 		axios
-			.patch('http://localhost:8000/v1/contact-us/update', {
-				id: e.target.id.value,
-				status: status,
-			})
+			.patch(
+				`http://localhost:8000/v1/contact-us/update?auth=${process.env.REACT_APP_API_AUTH}`,
+				{
+					id: e.target.id.value,
+					status: status,
+				}
+			)
 			.then(data => {
 				setSubmit(true);
 
@@ -63,7 +70,9 @@ function Contacts() {
 			e.preventDefault();
 
 			axios
-				.delete(`http://localhost:8000/v1/contact-us/delete/${id}`)
+				.delete(
+					`http://localhost:8000/v1/contact-us/delete/${id}?auth=${process.env.REACT_APP_API_AUTH}`
+				)
 				.then(data => {
 					setSubmit(true);
 					console.log(data.data);

@@ -18,11 +18,14 @@ function Form({ setSubmit }) {
 
 		if (rating >= 0 && rating <= 5) {
 			axios
-				.post('http://localhost:8000/v1/testimonial/add', {
-					name: name,
-					content: content,
-					rating: rating,
-				})
+				.post(
+					`http://localhost:8000/v1/testimonial/add?auth=${process.env.REACT_APP_API_AUTH}`,
+					{
+						name: name,
+						content: content,
+						rating: rating,
+					}
+				)
 				.then(data => {
 					document.querySelectorAll('input').forEach(el => {
 						el.value = '';

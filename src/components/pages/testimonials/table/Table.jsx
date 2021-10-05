@@ -23,10 +23,14 @@ function TestimonialsTable({ submit, setSubmit }) {
 	const [apiData, setApiData] = useState([]);
 
 	useEffect(() => {
-		axios.get('http://localhost:8000/v1/testimonial/get-all').then(data => {
-			setApiData(data.data.data);
-			setSubmit(false);
-		});
+		axios
+			.get(
+				`http://localhost:8000/v1/testimonial/get-all?auth=${process.env.REACT_APP_API_AUTH}`
+			)
+			.then(data => {
+				setApiData(data.data.data);
+				setSubmit(false);
+			});
 		//eslint-disable-next-line
 	}, [submit]);
 
@@ -35,7 +39,9 @@ function TestimonialsTable({ submit, setSubmit }) {
 			e.preventDefault();
 
 			axios
-				.delete(`http://localhost:8000/v1/testimonial/delete/${id}`)
+				.delete(
+					`http://localhost:8000/v1/testimonial/delete/${id}?auth=${process.env.REACT_APP_API_AUTH}`
+				)
 				.then(data => {
 					setSubmit(true);
 

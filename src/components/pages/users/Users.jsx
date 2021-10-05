@@ -20,10 +20,14 @@ function Users({ submit, setSubmit }) {
 	const [apiData, setApiData] = useState([]);
 
 	useEffect(() => {
-		axios.get('http://localhost:8000/v1/users/all-users').then(data => {
-			setApiData(data.data.data);
-			setSubmit(false);
-		});
+		axios
+			.get(
+				`http://localhost:8000/v1/users/all-users?auth=${process.env.REACT_APP_API_AUTH}`
+			)
+			.then(data => {
+				setApiData(data.data.data);
+				setSubmit(false);
+			});
 		//eslint-disable-next-line
 	}, [submit]);
 
@@ -32,7 +36,9 @@ function Users({ submit, setSubmit }) {
 			e.preventDefault();
 
 			axios
-				.delete(`http://localhost:8000/v1/users/delete-user/${id}`)
+				.delete(
+					`http://localhost:8000/v1/users/delete-user/${id}?auth=${process.env.REACT_APP_API_AUTH}`
+				)
 				.then(data => {
 					setSubmit(true);
 

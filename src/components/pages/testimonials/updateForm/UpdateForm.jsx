@@ -16,7 +16,9 @@ function UpdateForm({ submit, setSubmit }) {
 
 	useEffect(() => {
 		axios
-			.get(`http://localhost:8000/v1/testimonial/single-testimonial/${id}`)
+			.get(
+				`http://localhost:8000/v1/testimonial/single-testimonial/${id}?auth=${process.env.REACT_APP_API_AUTH}`
+			)
 			.then(data => {
 				setName(data.data.data.name);
 				setContent(data.data.data.content);
@@ -29,11 +31,14 @@ function UpdateForm({ submit, setSubmit }) {
 		e.preventDefault();
 
 		axios
-			.patch(`http://localhost:8000/v1/testimonial/update/${id}`, {
-				name: name,
-				content: content,
-				rating: rating,
-			})
+			.patch(
+				`http://localhost:8000/v1/testimonial/update/${id}?auth=${process.env.REACT_APP_API_AUTH}`,
+				{
+					name: name,
+					content: content,
+					rating: rating,
+				}
+			)
 			.then(data => {
 				console.log(data);
 				setSubmit(true);
