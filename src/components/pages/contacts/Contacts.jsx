@@ -39,30 +39,32 @@ function Contacts() {
 		//eslint-disable-next-line
 	}, [submit]);
 
-	const updateHandler = e => {
-		e.preventDefault();
+	const updateHandler = id => {
+		return e => {
+			e.preventDefault();
 
-		axios
-			.patch(
-				`http://localhost:8000/v1/contact-us/update?auth=${process.env.REACT_APP_API_AUTH}`,
-				{
-					id: e.target.id.value,
-					status: status,
-				}
-			)
-			.then(data => {
-				setSubmit(true);
+			axios
+				.patch(
+					`http://localhost:8000/v1/contact-us/update/${id}?auth=${process.env.REACT_APP_API_AUTH}`,
+					{
+						id: e.target.id.value,
+						status: status,
+					}
+				)
+				.then(data => {
+					setSubmit(true);
 
-				if (data.data.status === 200) {
-					document
-						.querySelector('.contacts__alert--success-update')
-						.classList.remove('hidden');
-				} else if (data.data.status === 400) {
-					document
-						.querySelector('.contacts__alert--error-update')
-						.classList.remove('hidden');
-				}
-			});
+					if (data.data.status === 200) {
+						document
+							.querySelector('.contacts__alert--success-update')
+							.classList.remove('hidden');
+					} else if (data.data.status === 400) {
+						document
+							.querySelector('.contacts__alert--error-update')
+							.classList.remove('hidden');
+					}
+				});
+		};
 	};
 
 	const deleteHandler = id => {
@@ -167,9 +169,7 @@ function Contacts() {
 								</TableCell>
 
 								<TableCell align='right' className='table__icon'>
-									<form onSubmit={updateHandler}>
-										<input type='hidden' name='id' value={data._id} />
-
+									<form onSubmit={updateHandler(data._id)}>
 										<BSecondary type='submit'>
 											<CheckIcon />
 										</BSecondary>

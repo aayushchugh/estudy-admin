@@ -17,7 +17,7 @@ function UpdateForm({ submit, setSubmit }) {
 	useEffect(() => {
 		axios
 			.get(
-				`http://localhost:8000/v1/testimonial/single-testimonial/${id}?auth=${process.env.REACT_APP_API_AUTH}`
+				`http://localhost:8000/v1/testimonial/get-single/${id}?auth=${process.env.REACT_APP_API_AUTH}`
 			)
 			.then(data => {
 				setName(data.data.data.name);
