@@ -36,6 +36,10 @@ function Form({ setSubmit }) {
 						document
 							.querySelector('.form__alert--success')
 							.classList.remove('hidden');
+					} else if (data.data.status === 400) {
+						document
+							.querySelector('.form__alert--exists')
+							.classList.remove('hidden');
 					} else if (data.data.status === 500) {
 						document
 							.querySelector('.form__alert--went-wrong')
@@ -64,11 +68,16 @@ function Form({ setSubmit }) {
 					Rating must be between 0 and 5
 				</AError>
 
+				<AError className='form__alert--exists hidden'>
+					Testimonial already exists try another name
+				</AError>
+
 				<TextField
 					onChange={e => setName(e.target.value)}
 					label='name'
 					variant='outlined'
 					fullWidth
+					required
 				/>
 
 				<TextField
@@ -76,6 +85,7 @@ function Form({ setSubmit }) {
 					label='content'
 					variant='outlined'
 					fullWidth
+					required
 				/>
 
 				<TextField
@@ -83,6 +93,7 @@ function Form({ setSubmit }) {
 					label='rating'
 					variant='outlined'
 					fullWidth
+					required
 				/>
 
 				<BPrimary type='submit'>Submit</BPrimary>

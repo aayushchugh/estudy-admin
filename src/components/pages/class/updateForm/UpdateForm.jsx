@@ -10,19 +10,17 @@ import { ASuccess, AError } from '../../../uiComponents/Alert';
 function UpdateForm({ submit, setSubmit }) {
 	const { id } = useParams();
 
-	const [name, setName] = useState('');
-	const [content, setContent] = useState('');
-	const [rating, setRating] = useState('');
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
 
 	useEffect(() => {
 		axios
 			.get(
-				`http://localhost:8000/v1/testimonial/get-single/${id}?auth=${process.env.REACT_APP_API_AUTH}`
+				`http://localhost:8000/v1/class/get-single/${id}?auth=${process.env.REACT_APP_API_AUTH}`
 			)
 			.then(data => {
-				setName(data.data.data.name);
-				setContent(data.data.data.content);
-				setRating(data.data.data.rating);
+				setTitle(data.data.data.title);
+				setDescription(data.data.data.description);
 			});
 		// eslint-disable-next-line
 	}, [id]);
@@ -32,11 +30,10 @@ function UpdateForm({ submit, setSubmit }) {
 
 		axios
 			.patch(
-				`http://localhost:8000/v1/testimonial/update/${id}?auth=${process.env.REACT_APP_API_AUTH}`,
+				`http://localhost:8000/v1/class/update/${id}?auth=${process.env.REACT_APP_API_AUTH}`,
 				{
-					name: name,
-					content: content,
-					rating: rating,
+					title: title,
+					description: description,
 				}
 			)
 			.then(data => {
@@ -55,36 +52,27 @@ function UpdateForm({ submit, setSubmit }) {
 		<section className='form-section'>
 			<form className='form' onSubmit={submitHandler}>
 				<ASuccess className='success-alert hidden'>
-					Successfully updated testimonial
+					Successfully updated Class
 				</ASuccess>
 
 				<AError className='error-alert hidden'>invalid id</AError>
 
 				<TextField
-					onChange={e => setName(e.target.value)}
-					value={name}
+					onChange={e => setTitle(e.target.value)}
+					value={title}
 					label='name'
 					variant='outlined'
-					fullWidth
 					required
+					fullWidth
 				/>
 
 				<TextField
-					onChange={e => setContent(e.target.value)}
-					value={content}
+					onChange={e => setDescription(e.target.value)}
+					value={description}
 					label='content'
 					variant='outlined'
-					fullWidth
 					required
-				/>
-
-				<TextField
-					onChange={e => setRating(e.target.value)}
-					value={rating}
-					label='rating'
-					variant='outlined'
 					fullWidth
-					required
 				/>
 
 				<BPrimary type='submit'>Update</BPrimary>

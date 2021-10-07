@@ -33,6 +33,12 @@ function Nav() {
 							<BSecondary>contacts</BSecondary>
 						</Link>
 					</li>
+
+					<li>
+						<Link to='/class'>
+							<BSecondary>Class</BSecondary>
+						</Link>
+					</li>
 				</ul>
 			</nav>
 		</header>

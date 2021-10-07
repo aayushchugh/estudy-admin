@@ -8,6 +8,8 @@ import Testimonials from './components/routes/Testimonials';
 import UpdateTestimonial from './components/routes/UpdateTestimonial';
 import UpdateEmailList from './components/routes/UpdateEmailList';
 import Contacts from './components/routes/Contacts';
+import Class from './components/routes/Class';
+import UpdateClass from './components/routes/UpdateClass';
 
 function App() {
 	return (
@@ -34,6 +36,14 @@ function App() {
 
 				<Route path='/contacts' exact>
 					<Contacts />
+				</Route>
+
+				<Route path='/class' exact>
+					<Class />
+				</Route>
+
+				<Route path='/class/update/:id' exact>
+					<UpdateClass />
 				</Route>
 			</Router>
 		</>
