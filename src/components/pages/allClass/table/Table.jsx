@@ -86,10 +86,7 @@ function ClassTable({ submit, setSubmit }) {
 								sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 							>
 								<TableCell component='th' scope='row'>
-									<Link
-										to={`/class/${data.title}`}
-										className='class-table__link'
-									>
+									<Link to={`/class/${data._id}`} className='class-table__link'>
 										{data.title}
 									</Link>
 								</TableCell>

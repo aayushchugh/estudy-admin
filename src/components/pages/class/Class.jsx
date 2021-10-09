@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import {
@@ -12,22 +14,25 @@ import {
 } from '@mui/material';
 
 import DeleteIcon from '@mui/icons-material/Delete';
+import CreateIcon from '@mui/icons-material/Create';
 
 import { BSecondary } from '../../uiComponents/Btn';
 import { ASuccess, AError } from '../../uiComponents/Alert';
 
-import './users.scss';
+import './class.scss';
 
-function Users({ submit, setSubmit }) {
+function Class({ submit, setSubmit }) {
 	const [apiData, setApiData] = useState([]);
+
+	const { id } = useParams();
 
 	useEffect(() => {
 		axios
 			.get(
-				`http://localhost:8000/v1/users/all-users?auth=${process.env.REACT_APP_API_AUTH}`
+				`http://localhost:8000/v1/class/get-single/${id}?subjects=true&auth=${process.env.REACT_APP_API_AUTH}`
 			)
 			.then(data => {
-				setApiData(data.data.data);
+				setApiData(data.data.data.subjects);
 				setSubmit(false);
 			});
 		//eslint-disable-next-line
@@ -39,19 +44,17 @@ function Users({ submit, setSubmit }) {
 
 			axios
 				.delete(
-					`http://localhost:8000/v1/users/delete-user/${id}?auth=${process.env.REACT_APP_API_AUTH}`
+					`http://localhost:8000/v1/subject/delete/${id}?auth=${process.env.REACT_APP_API_AUTH}`
 				)
 				.then(data => {
 					setSubmit(true);
 
 					if (data.data.status === 200) {
 						document
-							.querySelector('.user-table__alert--success')
+							.querySelector('.class__alert--success')
 							.classList.remove('hidden');
 					} else if (data.data.status === 400) {
-						document
-							.querySelector('.user-table__alert--error')
-							.classList.remove('hidden');
+						document.querySelector('.class--error').classList.remove('hidden');
 					}
 				});
 		};
@@ -59,22 +62,20 @@ function Users({ submit, setSubmit }) {
 
 	return (
 		<>
-			<TableContainer className='user' component={Paper}>
-				<ASuccess className='user__alert user__alert--success hidden'>
-					Successfully deleted user
+			<TableContainer className='class' component={Paper}>
+				<ASuccess className='class__alert class__alert--success hidden'>
+					Successfully deleted subject
 				</ASuccess>
-				<AError className='user__alert user__alert--error hidden'>
+				<AError className='class__alert class__alert--error hidden'>
 					invalid id
 				</AError>
 
 				<Table sx={{ minWidth: 650 }} aria-label='simple table'>
 					<TableHead>
 						<TableRow>
-							<TableCell>Name</TableCell>
-							<TableCell align='right'>Email</TableCell>
-							<TableCell align='right'>class</TableCell>
-							<TableCell align='right'>Id</TableCell>
+							<TableCell>Title</TableCell>
 							<TableCell align='right'>delete</TableCell>
+							<TableCell align='right'>update</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -84,17 +85,24 @@ function Users({ submit, setSubmit }) {
 								sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 							>
 								<TableCell component='th' scope='row'>
-									{data.name}
+									<Link to={`/subject/${data._id}`} className='class__link'>
+										{data.title}
+									</Link>
 								</TableCell>
-								<TableCell align='right'>{data.email}</TableCell>
-								<TableCell align='right'>{data.class}</TableCell>
-								<TableCell align='right'>{data._id}</TableCell>
 								<TableCell align='right'>
 									<form onSubmit={handleForm(data._id)}>
 										<BSecondary type='submit'>
 											<DeleteIcon />
 										</BSecondary>
 									</form>
+								</TableCell>
+
+								<TableCell align='right'>
+									<Link to={`/subject/update/${data._id}`}>
+										<BSecondary>
+											<CreateIcon />
+										</BSecondary>
+									</Link>
 								</TableCell>
 							</TableRow>
 						))}
@@ -105,4 +113,4 @@ function Users({ submit, setSubmit }) {
 	);
 }
 
-export default Users;
+export default Class;
