@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Form from '../pages/class/form/Form';
-import Table from '../pages/class/table/Table';
+import Form from '../pages/allClass/form/Form';
+import Table from '../pages/allClass/table/Table';
 
 function Class() {
 	const [submit, setSubmit] = useState(false);

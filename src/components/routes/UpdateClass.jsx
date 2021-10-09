@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import Table from '../../components/pages/class/table/Table';
-import UpdateForm from '../pages/class/updateForm/UpdateForm';
+import Table from '../pages/allClass/table/Table';
+import UpdateForm from '../pages/allClass/updateForm/UpdateForm';
 
 function UpdateClass() {
 	const [submit, setSubmit] = useState(false);

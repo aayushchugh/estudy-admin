@@ -8,7 +8,7 @@ import Testimonials from './components/routes/Testimonials';
 import UpdateTestimonial from './components/routes/UpdateTestimonial';
 import UpdateEmailList from './components/routes/UpdateEmailList';
 import Contacts from './components/routes/Contacts';
-import Class from './components/routes/Class';
+import AllClass from './components/routes/AllClass';
 import UpdateClass from './components/routes/UpdateClass';
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
 				</Route>
 
 				<Route path='/class' exact>
-					<Class />
+					<AllClass />
 				</Route>
 
 				<Route path='/class/update/:id' exact>
