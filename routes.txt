@@ -1,0 +1,6 @@
+/class/{class title} - show subjects of only that class
+/subject - show all subjects
+/subject/{subject title} - show all content of that subject
+/notes - all notes
+/pyq - all pyqs
+/ncert-solutions - all ncert solutions

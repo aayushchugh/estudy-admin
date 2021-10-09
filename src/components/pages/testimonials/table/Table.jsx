@@ -47,11 +47,11 @@ function TestimonialsTable({ submit, setSubmit }) {
 
 					if (data.data.status === 200) {
 						document
-							.querySelector('.table__alert--success')
+							.querySelector('.testimonial-table__alert--success')
 							.classList.remove('hidden');
 					} else if (data.data.status === 400) {
 						document
-							.querySelector('.table__alert--error')
+							.querySelector('.testimonial-table__alert--error')
 							.classList.remove('hidden');
 					}
 				});
@@ -59,13 +59,13 @@ function TestimonialsTable({ submit, setSubmit }) {
 	};
 
 	return (
-		<section className='table-section'>
-			<TableContainer className='table' component={Paper}>
-				<ASuccess className='table__alert table__alert--success hidden'>
+		<section className='testimonial-section'>
+			<TableContainer className='testimonial-table' component={Paper}>
+				<ASuccess className='testimonial-table__alert testimonial-table__alert--success hidden'>
 					Successfully removed testimonial
 				</ASuccess>
 
-				<AError className='table__alert table__alert--error hidden'>
+				<AError className='testimonial-table__alert testimonial-table__alert--error hidden'>
 					invalid id
 				</AError>
 
@@ -90,13 +90,16 @@ function TestimonialsTable({ submit, setSubmit }) {
 									{data.name}
 								</TableCell>
 
-								<TableCell align='right' className='table__content--para'>
+								<TableCell
+									align='right'
+									className='testimonial-table__content--para'
+								>
 									{data.content}
 								</TableCell>
 
 								<TableCell align='right'>{data.rating}</TableCell>
 
-								<TableCell align='right' className='table__icon'>
+								<TableCell align='right' className='testimonial-table__icon'>
 									<form onSubmit={handleDelete(data._id)}>
 										<BSecondary type='submit'>
 											<DeleteIcon />
@@ -104,7 +107,7 @@ function TestimonialsTable({ submit, setSubmit }) {
 									</form>
 								</TableCell>
 
-								<TableCell align='right' className='table__icon'>
+								<TableCell align='right' className='testimonial-table__icon'>
 									<Link to={`/testimonials/update/${data._id}`}>
 										<BSecondary>
 											<CreateIcon />

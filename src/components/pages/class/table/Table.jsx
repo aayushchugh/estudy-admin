@@ -19,7 +19,7 @@ import { BSecondary } from '../../../uiComponents/Btn';
 import { AError, ASuccess } from '../../../uiComponents/Alert';
 import './table.scss';
 
-function TestimonialsTable({ submit, setSubmit }) {
+function ClassTable({ submit, setSubmit }) {
 	const [apiData, setApiData] = useState([]);
 
 	useEffect(() => {
@@ -59,13 +59,13 @@ function TestimonialsTable({ submit, setSubmit }) {
 	};
 
 	return (
-		<section className='table-section'>
-			<TableContainer className='table' component={Paper}>
-				<ASuccess className='table__alert table__alert--success hidden'>
+		<section className='class-section'>
+			<TableContainer className='class-table' component={Paper}>
+				<ASuccess className='class-table__alert class-table__alert--success hidden'>
 					Successfully removed class
 				</ASuccess>
 
-				<AError className='table__alert table__alert--error hidden'>
+				<AError className='class-table__alert class-table__alert--error hidden'>
 					invalid id
 				</AError>
 
@@ -86,14 +86,19 @@ function TestimonialsTable({ submit, setSubmit }) {
 								sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 							>
 								<TableCell component='th' scope='row'>
-									{data.title}
+									<Link
+										to={`/class/${data.title}`}
+										className='class-table__link'
+									>
+										{data.title}
+									</Link>
 								</TableCell>
 
-								<TableCell align='right' className='table__content--para'>
+								<TableCell align='right' className='class-table__content--para'>
 									{data.description}
 								</TableCell>
 
-								<TableCell align='right' className='table__icon'>
+								<TableCell align='right' className='class-table__icon'>
 									<form onSubmit={handleDelete(data._id)}>
 										<BSecondary type='submit'>
 											<DeleteIcon />
@@ -101,7 +106,7 @@ function TestimonialsTable({ submit, setSubmit }) {
 									</form>
 								</TableCell>
 
-								<TableCell align='right' className='table__icon'>
+								<TableCell align='right' className='class-table__icon'>
 									<Link to={`/class/update/${data._id}`}>
 										<BSecondary>
 											<CreateIcon />
@@ -117,4 +122,4 @@ function TestimonialsTable({ submit, setSubmit }) {
 	);
 }
 
-export default TestimonialsTable;
+export default ClassTable;
