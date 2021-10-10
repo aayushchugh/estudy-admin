@@ -155,6 +155,7 @@ function Contacts() {
 											label='update status'
 											value={status}
 											onChange={e => setStatus(e.target.value)}
+											required
 										>
 											<MenuItem value='waiting-response'>
 												waiting response
