@@ -47,11 +47,11 @@ function ClassTable({ submit, setSubmit }) {
 
 					if (data.data.status === 200) {
 						document
-							.querySelector('.table__alert--success')
+							.querySelector('.class-table__alert--success')
 							.classList.remove('hidden');
 					} else if (data.data.status === 400) {
 						document
-							.querySelector('.table__alert--error')
+							.querySelector('.class-table__alert--error')
 							.classList.remove('hidden');
 					}
 				});

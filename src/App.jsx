@@ -11,6 +11,8 @@ import Contacts from './components/routes/Contacts';
 import AllClass from './components/routes/AllClass';
 import UpdateClass from './components/routes/UpdateClass';
 import Class from './components/routes/Class';
+import AllSubject from './components/routes/AllSubject';
+import UpdateSubject from './components/routes/UpdateSubject';
 
 function App() {
 	return (
@@ -49,6 +51,14 @@ function App() {
 
 				<Route path='/class/:id' exact>
 					<Class />
+				</Route>
+
+				<Route path='/subject' exact>
+					<AllSubject />
+				</Route>
+
+				<Route path='/subject/update/:id' exact>
+					<UpdateSubject />
 				</Route>
 			</Router>
 		</>

@@ -7,20 +7,19 @@ import { BPrimary } from '../../../uiComponents/Btn';
 
 import { ASuccess, AError } from '../../../uiComponents/Alert';
 
-function UpdateForm({ setSubmit }) {
+function UpdateForm({ submit, setSubmit }) {
 	const { id } = useParams();
 
 	const [title, setTitle] = useState('');
-	const [description, setDescription] = useState('');
+	const [error, setError] = useState('');
 
 	useEffect(() => {
 		axios
 			.get(
-				`http://localhost:8000/v1/class/get-single/${id}?auth=${process.env.REACT_APP_API_AUTH}`
+				`http://localhost:8000/v1/subject/get-single/${id}?auth=${process.env.REACT_APP_API_AUTH}`
 			)
 			.then(data => {
 				setTitle(data.data.data.title);
-				setDescription(data.data.data.description);
 			});
 		// eslint-disable-next-line
 	}, [id]);
@@ -30,19 +29,18 @@ function UpdateForm({ setSubmit }) {
 
 		axios
 			.patch(
-				`http://localhost:8000/v1/class/update/${id}?auth=${process.env.REACT_APP_API_AUTH}`,
+				`http://localhost:8000/v1/subject/update/${id}?auth=${process.env.REACT_APP_API_AUTH}`,
 				{
 					title: title,
-					description: description,
 				}
 			)
 			.then(data => {
-				console.log(data);
 				setSubmit(true);
 
 				if (data.data.status === 200) {
 					document.querySelector('.success-alert').classList.remove('hidden');
 				} else if (data.data.status === 400) {
+					setError(data.data.message);
 					document.querySelector('.error-alert').classList.remove('hidden');
 				}
 			});
@@ -52,24 +50,15 @@ function UpdateForm({ setSubmit }) {
 		<section className='form-section'>
 			<form className='form' onSubmit={submitHandler}>
 				<ASuccess className='success-alert hidden'>
-					Successfully updated Class
+					Successfully updated subject
 				</ASuccess>
 
-				<AError className='error-alert hidden'>invalid id</AError>
+				<AError className='error-alert hidden'>{error}</AError>
 
 				<TextField
 					onChange={e => setTitle(e.target.value)}
 					value={title}
-					label='name'
-					variant='outlined'
-					required
-					fullWidth
-				/>
-
-				<TextField
-					onChange={e => setDescription(e.target.value)}
-					value={description}
-					label='content'
+					label='title'
 					variant='outlined'
 					required
 					fullWidth

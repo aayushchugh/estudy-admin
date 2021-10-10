@@ -39,6 +39,12 @@ function Nav() {
 							<BSecondary>Class</BSecondary>
 						</Link>
 					</li>
+
+					<li>
+						<Link to='/subject'>
+							<BSecondary>Subjects</BSecondary>
+						</Link>
+					</li>
 				</ul>
 			</nav>
 		</header>

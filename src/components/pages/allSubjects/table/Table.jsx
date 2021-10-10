@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -16,29 +15,27 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import CreateIcon from '@mui/icons-material/Create';
 
-import { BSecondary } from '../../uiComponents/Btn';
-import { ASuccess, AError } from '../../uiComponents/Alert';
+import { BSecondary } from '../../../uiComponents/Btn';
+import { AError, ASuccess } from '../../../uiComponents/Alert';
+import './table.scss';
 
-import './class.scss';
-
-function Class({ submit, setSubmit }) {
+function SubjectTable({ submit, setSubmit }) {
 	const [apiData, setApiData] = useState([]);
-
-	const { id } = useParams();
 
 	useEffect(() => {
 		axios
 			.get(
-				`http://localhost:8000/v1/class/get-single/${id}?subjects=true&auth=${process.env.REACT_APP_API_AUTH}`
+				`http://localhost:8000/v1/subject/get-all?all=true&auth=${process.env.REACT_APP_API_AUTH}`
 			)
 			.then(data => {
-				setApiData(data.data.data.subjects);
+				console.log(data);
+				setApiData(data.data.data);
 				setSubmit(false);
 			});
 		//eslint-disable-next-line
 	}, [submit]);
 
-	const handleForm = id => {
+	const handleDelete = id => {
 		return e => {
 			e.preventDefault();
 
@@ -51,23 +48,25 @@ function Class({ submit, setSubmit }) {
 
 					if (data.data.status === 200) {
 						document
-							.querySelector('.class__alert--success')
+							.querySelector('.subject-table__alert--success')
 							.classList.remove('hidden');
 					} else if (data.data.status === 400) {
-						document.querySelector('.class--error').classList.remove('hidden');
+						document
+							.querySelector('.subject-table__alert--error')
+							.classList.remove('hidden');
 					}
 				});
 		};
 	};
 
 	return (
-		<>
-			<TableContainer className='class' component={Paper}>
-				<ASuccess className='class__alert class__alert--success hidden'>
-					Successfully deleted subject
+		<section className='subject-section'>
+			<TableContainer className='subject-table' component={Paper}>
+				<ASuccess className='subject-table__alert subject-table__alert--success hidden'>
+					Successfully removed subject
 				</ASuccess>
 
-				<AError className='class__alert class__alert--error hidden'>
+				<AError className='subject-table__alert subject-table__alert--error hidden'>
 					invalid id
 				</AError>
 
@@ -75,10 +74,12 @@ function Class({ submit, setSubmit }) {
 					<TableHead>
 						<TableRow>
 							<TableCell>Title</TableCell>
+							<TableCell align='right'>Class</TableCell>
 							<TableCell align='right'>delete</TableCell>
 							<TableCell align='right'>update</TableCell>
 						</TableRow>
 					</TableHead>
+
 					<TableBody>
 						{apiData.map(data => (
 							<TableRow
@@ -86,19 +87,30 @@ function Class({ submit, setSubmit }) {
 								sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 							>
 								<TableCell component='th' scope='row'>
-									<Link to={`/subject/${data._id}`} className='class__link'>
+									<Link
+										to={`/subject/${data._id}`}
+										className='subject-table__link'
+									>
 										{data.title}
 									</Link>
 								</TableCell>
-								<TableCell align='right'>
-									<form onSubmit={handleForm(data._id)}>
+
+								<TableCell
+									align='right'
+									className='subject-table__content--para'
+								>
+									{data.classTitle}
+								</TableCell>
+
+								<TableCell align='right' className='subject-table__icon'>
+									<form onSubmit={handleDelete(data._id)}>
 										<BSecondary type='submit'>
 											<DeleteIcon />
 										</BSecondary>
 									</form>
 								</TableCell>
 
-								<TableCell align='right'>
+								<TableCell align='right' className='subject-table__icon'>
 									<Link to={`/subject/update/${data._id}`}>
 										<BSecondary>
 											<CreateIcon />
@@ -110,8 +122,8 @@ function Class({ submit, setSubmit }) {
 					</TableBody>
 				</Table>
 			</TableContainer>
-		</>
+		</section>
 	);
 }
 
-export default Class;
+export default SubjectTable;
