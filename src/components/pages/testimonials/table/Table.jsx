@@ -21,6 +21,8 @@ import './table.scss';
 
 function TestimonialsTable({ submit, setSubmit }) {
 	const [apiData, setApiData] = useState([]);
+	const [success, setSuccess] = useState(false);
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		axios
@@ -46,10 +48,12 @@ function TestimonialsTable({ submit, setSubmit }) {
 					setSubmit(true);
 
 					if (data.data.status === 200) {
+						setSuccess(data.data.message);
 						document
 							.querySelector('.testimonial-table__alert--success')
 							.classList.remove('hidden');
 					} else if (data.data.status === 400) {
+						setError(data.data.message);
 						document
 							.querySelector('.testimonial-table__alert--error')
 							.classList.remove('hidden');
@@ -62,11 +66,11 @@ function TestimonialsTable({ submit, setSubmit }) {
 		<section className='testimonial-section'>
 			<TableContainer className='testimonial-table' component={Paper}>
 				<ASuccess className='testimonial-table__alert testimonial-table__alert--success hidden'>
-					Successfully removed testimonial
+					{success}
 				</ASuccess>
 
 				<AError className='testimonial-table__alert testimonial-table__alert--error hidden'>
-					invalid id
+					{error}
 				</AError>
 
 				<Table sx={{ minWidth: 650 }} aria-label='simple table'>

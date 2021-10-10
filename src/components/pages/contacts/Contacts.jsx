@@ -26,6 +26,8 @@ function Contacts() {
 	const [apiData, setApiData] = useState([]);
 	const [submit, setSubmit] = useState(false);
 	const [status, setStatus] = useState('');
+	const [error, setError] = useState('');
+	const [success, setSuccess] = useState('');
 
 	useEffect(() => {
 		axios
@@ -55,12 +57,15 @@ function Contacts() {
 					setSubmit(true);
 
 					if (data.data.status === 200) {
+						setSuccess(data.data.message);
 						document
-							.querySelector('.contacts__alert--success-update')
+							.querySelector('.contacts__alert--success')
 							.classList.remove('hidden');
 					} else if (data.data.status === 400) {
+						setError(data.data.message);
+
 						document
-							.querySelector('.contacts__alert--error-update')
+							.querySelector('.contacts__alert--error')
 							.classList.remove('hidden');
 					}
 				});
@@ -81,12 +86,14 @@ function Contacts() {
 					console.log(e.target.id.value);
 
 					if (data.data.status === 200) {
+						setSuccess(data.data.message);
 						document
-							.querySelector('.contacts__alert--success-delete')
+							.querySelector('.contacts__alert--success')
 							.classList.remove('hidden');
 					} else if (data.data.status === 400) {
+						setError(data.data.message);
 						document
-							.querySelector('.contacts__alert--error-delete')
+							.querySelector('.contacts__alert--error')
 							.classList.remove('hidden');
 					}
 				});
@@ -96,20 +103,12 @@ function Contacts() {
 	return (
 		<section className='contacts-section'>
 			<TableContainer className='contacts' component={Paper}>
-				<ASuccess className='contacts__alert contacts__alert--success-update hidden'>
-					Successfully updated contact
+				<ASuccess className='contacts__alert contacts__alert--success hidden'>
+					{success}
 				</ASuccess>
 
-				<ASuccess className='contacts__alert contacts__alert--success-delete hidden'>
-					Successfully deleted contact
-				</ASuccess>
-
-				<AError className='contacts__alert contacts__alert--error-update hidden'>
-					invalid id or status
-				</AError>
-
-				<AError className='contacts__alert contacts__alert--error-delete hidden'>
-					invalid id contact not found
+				<AError className='contacts__alert contacts__alert--error hidden'>
+					{error}
 				</AError>
 
 				<Table sx={{ minWidth: 650 }} aria-label='simple table'>

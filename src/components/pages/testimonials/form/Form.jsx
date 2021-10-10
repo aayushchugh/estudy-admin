@@ -12,6 +12,8 @@ function Form({ setSubmit }) {
 	const [name, setName] = useState('');
 	const [content, setContent] = useState('');
 	const [rating, setRating] = useState('');
+	const [success, setSuccess] = useState(false);
+	const [error, setError] = useState(false);
 
 	const submitHandler = e => {
 		e.preventDefault();
@@ -27,53 +29,39 @@ function Form({ setSubmit }) {
 					}
 				)
 				.then(data => {
-					document.querySelectorAll('input').forEach(el => {
-						el.value = '';
-					});
-					setSubmit(true);
-
 					if (data.data.status === 201) {
+						setSuccess(data.data.message);
 						document
 							.querySelector('.form__alert--success')
 							.classList.remove('hidden');
 					} else if (data.data.status === 400) {
+						setError(data.data.message);
 						document
-							.querySelector('.form__alert--exists')
-							.classList.remove('hidden');
-					} else if (data.data.status === 500) {
-						document
-							.querySelector('.form__alert--went-wrong')
+							.querySelector('.form__alert--error')
 							.classList.remove('hidden');
 					}
+
+					setName('');
+					setContent('');
+					setRating('');
+					setSubmit(true);
 				});
 		} else {
-			document
-				.querySelector('.form__alert--rating-between-0-5')
-				.classList.remove('hidden');
+			setError('Rating must be between 0 and 5');
+			document.querySelector('.form__alert--error').classList.remove('hidden');
 		}
 	};
 
 	return (
 		<section className='form-section'>
 			<form className='form' onSubmit={submitHandler}>
-				<ASuccess className='form__alert--success hidden'>
-					Successfully added new testimonial
-				</ASuccess>
+				<ASuccess className='form__alert--success hidden'>{success}</ASuccess>
 
-				<AError className='form__alert--went-wrong hidden'>
-					something went wrong
-				</AError>
-
-				<AError className='form__alert--rating-between-0-5 hidden'>
-					Rating must be between 0 and 5
-				</AError>
-
-				<AError className='form__alert--exists hidden'>
-					Testimonial already exists try another name
-				</AError>
+				<AError className='form__alert--error hidden'>{error}</AError>
 
 				<TextField
 					onChange={e => setName(e.target.value)}
+					value={name}
 					label='name'
 					variant='outlined'
 					fullWidth
@@ -82,6 +70,7 @@ function Form({ setSubmit }) {
 
 				<TextField
 					onChange={e => setContent(e.target.value)}
+					value={content}
 					label='content'
 					variant='outlined'
 					fullWidth
@@ -90,6 +79,7 @@ function Form({ setSubmit }) {
 
 				<TextField
 					onChange={e => setRating(e.target.value)}
+					value={rating}
 					label='rating'
 					variant='outlined'
 					fullWidth

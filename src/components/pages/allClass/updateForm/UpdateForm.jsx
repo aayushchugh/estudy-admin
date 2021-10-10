@@ -12,6 +12,8 @@ function UpdateForm({ setSubmit }) {
 
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
+	const [success, setSuccess] = useState(false);
+	const [error, setError] = useState('');
 
 	useEffect(() => {
 		axios
@@ -37,12 +39,12 @@ function UpdateForm({ setSubmit }) {
 				}
 			)
 			.then(data => {
-				console.log(data);
 				setSubmit(true);
-
 				if (data.data.status === 200) {
+					setSuccess(data.data.message);
 					document.querySelector('.success-alert').classList.remove('hidden');
 				} else if (data.data.status === 400) {
+					setError(data.data.message);
 					document.querySelector('.error-alert').classList.remove('hidden');
 				}
 			});
@@ -51,11 +53,9 @@ function UpdateForm({ setSubmit }) {
 	return (
 		<section className='form-section'>
 			<form className='form' onSubmit={submitHandler}>
-				<ASuccess className='success-alert hidden'>
-					Successfully updated Class
-				</ASuccess>
+				<ASuccess className='success-alert hidden'>{success}</ASuccess>
 
-				<AError className='error-alert hidden'>invalid id</AError>
+				<AError className='error-alert hidden'>{error}</AError>
 
 				<TextField
 					onChange={e => setTitle(e.target.value)}

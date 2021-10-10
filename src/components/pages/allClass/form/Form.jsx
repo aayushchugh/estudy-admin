@@ -11,6 +11,8 @@ import './form.scss';
 function Form({ setSubmit }) {
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
+	const [success, setSuccess] = useState('');
+	const [error, setError] = useState('');
 
 	const submitHandler = e => {
 		e.preventDefault();
@@ -26,12 +28,14 @@ function Form({ setSubmit }) {
 			)
 			.then(data => {
 				if (data.data.status === 201) {
+					setSuccess(data.data.message);
 					document
 						.querySelector('.form__alert--success')
 						.classList.remove('hidden');
 				} else if (data.data.status === 400) {
+					setError(data.data.message);
 					document
-						.querySelector('.form__alert--exists')
+						.querySelector('.form__alert--error')
 						.classList.remove('hidden');
 				}
 
@@ -43,13 +47,9 @@ function Form({ setSubmit }) {
 	return (
 		<section className='form-section'>
 			<form className='form' onSubmit={submitHandler}>
-				<ASuccess className='form__alert--success hidden'>
-					Successfully added new class
-				</ASuccess>
+				<ASuccess className='form__alert--success hidden'>{success}</ASuccess>
 
-				<AError className='form__alert--exists hidden'>
-					class already exists
-				</AError>
+				<AError className='form__alert--error hidden'>{error}</AError>
 
 				<TextField
 					label='title'

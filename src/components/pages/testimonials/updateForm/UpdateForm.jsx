@@ -13,6 +13,8 @@ function UpdateForm({ submit, setSubmit }) {
 	const [name, setName] = useState('');
 	const [content, setContent] = useState('');
 	const [rating, setRating] = useState('');
+	const [error, setError] = useState('');
+	const [success, setSuccess] = useState('');
 
 	useEffect(() => {
 		axios
@@ -30,35 +32,44 @@ function UpdateForm({ submit, setSubmit }) {
 	const submitHandler = e => {
 		e.preventDefault();
 
-		axios
-			.patch(
-				`http://localhost:8000/v1/testimonial/update/${id}?auth=${process.env.REACT_APP_API_AUTH}`,
-				{
-					name: name,
-					content: content,
-					rating: rating,
-				}
-			)
-			.then(data => {
-				console.log(data);
-				setSubmit(true);
+		if (rating >= 0 && rating <= 5) {
+			axios
+				.patch(
+					`http://localhost:8000/v1/testimonial/update/${id}?auth=${process.env.REACT_APP_API_AUTH}`,
+					{
+						name: name,
+						content: content,
+						rating: rating,
+					}
+				)
+				.then(data => {
+					console.log(data);
+					setSubmit(true);
 
-				if (data.data.status === 200) {
-					document.querySelector('.success-alert').classList.remove('hidden');
-				} else if (data.data.status === 400) {
-					document.querySelector('.error-alert').classList.remove('hidden');
-				}
-			});
+					if (data.data.status === 200) {
+						setSuccess(data.data.message);
+						document
+							.querySelector('.form__alert--success')
+							.classList.remove('hidden');
+					} else if (data.data.status === 400) {
+						setError(data.data.message);
+						document
+							.querySelector('.form__alert--error')
+							.classList.remove('hidden');
+					}
+				});
+		} else {
+			setError('Rating must be between 0 and 5');
+			document.querySelector('.form__alert--error').classList.remove('hidden');
+		}
 	};
 
 	return (
 		<section className='form-section'>
 			<form className='form' onSubmit={submitHandler}>
-				<ASuccess className='success-alert hidden'>
-					Successfully updated testimonial
-				</ASuccess>
+				<ASuccess className='form__alert--success hidden'>{success}</ASuccess>
 
-				<AError className='error-alert hidden'>invalid id</AError>
+				<AError className='form__alert--error hidden'>{error}</AError>
 
 				<TextField
 					onChange={e => setName(e.target.value)}

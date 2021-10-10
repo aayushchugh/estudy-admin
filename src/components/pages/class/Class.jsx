@@ -23,6 +23,8 @@ import './class.scss';
 
 function Class({ submit, setSubmit }) {
 	const [apiData, setApiData] = useState([]);
+	const [success, setSuccess] = useState('');
+	const [error, setError] = useState('');
 
 	const { id } = useParams();
 
@@ -50,11 +52,15 @@ function Class({ submit, setSubmit }) {
 					setSubmit(true);
 
 					if (data.data.status === 200) {
+						setSuccess(data.data.message);
 						document
 							.querySelector('.class__alert--success')
 							.classList.remove('hidden');
 					} else if (data.data.status === 400) {
-						document.querySelector('.class--error').classList.remove('hidden');
+						setError(data.data.message);
+						document
+							.querySelector('.class__alert--error')
+							.classList.remove('hidden');
 					}
 				});
 		};
@@ -64,11 +70,11 @@ function Class({ submit, setSubmit }) {
 		<>
 			<TableContainer className='class' component={Paper}>
 				<ASuccess className='class__alert class__alert--success hidden'>
-					Successfully deleted subject
+					{success}
 				</ASuccess>
 
 				<AError className='class__alert class__alert--error hidden'>
-					invalid id
+					{error}
 				</AError>
 
 				<Table sx={{ minWidth: 650 }} aria-label='simple table'>

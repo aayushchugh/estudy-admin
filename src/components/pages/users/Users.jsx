@@ -20,6 +20,8 @@ import './users.scss';
 
 function Users({ submit, setSubmit }) {
 	const [apiData, setApiData] = useState([]);
+	const [success, setSuccess] = useState('');
+	const [error, setError] = useState('');
 
 	useEffect(() => {
 		axios
@@ -45,10 +47,12 @@ function Users({ submit, setSubmit }) {
 					setSubmit(true);
 
 					if (data.data.status === 200) {
+						setSuccess(data.data.message);
 						document
 							.querySelector('.user-table__alert--success')
 							.classList.remove('hidden');
 					} else if (data.data.status === 400) {
+						setError(data.data.message);
 						document
 							.querySelector('.user-table__alert--error')
 							.classList.remove('hidden');
@@ -61,10 +65,10 @@ function Users({ submit, setSubmit }) {
 		<>
 			<TableContainer className='user' component={Paper}>
 				<ASuccess className='user__alert user__alert--success hidden'>
-					Successfully deleted user
+					{success}
 				</ASuccess>
 				<AError className='user__alert user__alert--error hidden'>
-					invalid id
+					{error}
 				</AError>
 
 				<Table sx={{ minWidth: 650 }} aria-label='simple table'>

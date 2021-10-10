@@ -11,6 +11,7 @@ function UpdateForm({ submit, setSubmit }) {
 	const { id } = useParams();
 
 	const [title, setTitle] = useState('');
+	const [success, setSuccess] = useState('initialState');
 	const [error, setError] = useState('');
 
 	useEffect(() => {
@@ -38,6 +39,7 @@ function UpdateForm({ submit, setSubmit }) {
 				setSubmit(true);
 
 				if (data.data.status === 200) {
+					setSuccess(data.data.message);
 					document.querySelector('.success-alert').classList.remove('hidden');
 				} else if (data.data.status === 400) {
 					setError(data.data.message);
@@ -49,9 +51,7 @@ function UpdateForm({ submit, setSubmit }) {
 	return (
 		<section className='form-section'>
 			<form className='form' onSubmit={submitHandler}>
-				<ASuccess className='success-alert hidden'>
-					Successfully updated subject
-				</ASuccess>
+				<ASuccess className='success-alert hidden'>{success}</ASuccess>
 
 				<AError className='error-alert hidden'>{error}</AError>
 

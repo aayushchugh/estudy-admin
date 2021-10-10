@@ -21,6 +21,8 @@ import './table.scss';
 
 function ClassTable({ submit, setSubmit }) {
 	const [apiData, setApiData] = useState([]);
+	const [success, setSuccess] = useState('');
+	const [error, setError] = useState('');
 
 	useEffect(() => {
 		axios
@@ -46,10 +48,12 @@ function ClassTable({ submit, setSubmit }) {
 					setSubmit(true);
 
 					if (data.data.status === 200) {
+						setSuccess(data.data.message);
 						document
 							.querySelector('.class-table__alert--success')
 							.classList.remove('hidden');
 					} else if (data.data.status === 400) {
+						setError(data.data.message);
 						document
 							.querySelector('.class-table__alert--error')
 							.classList.remove('hidden');
@@ -62,11 +66,11 @@ function ClassTable({ submit, setSubmit }) {
 		<section className='class-section'>
 			<TableContainer className='class-table' component={Paper}>
 				<ASuccess className='class-table__alert class-table__alert--success hidden'>
-					Successfully removed class
+					{success}
 				</ASuccess>
 
 				<AError className='class-table__alert class-table__alert--error hidden'>
-					invalid id
+					{error}
 				</AError>
 
 				<Table sx={{ minWidth: 650 }} aria-label='simple table'>
