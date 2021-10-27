@@ -1,3 +1,5 @@
+> **WARNING**: auth query in every type of request is required else your request will not be fulfilled
+
 ### Authentication
 
 #### Signup user
@@ -5,6 +7,8 @@
 ```http
   POST /v1/signup
 ```
+
+Request
 
 | Query  | Type     | Description                           |
 | :----- | :------- | :------------------------------------ |
@@ -15,6 +19,19 @@
 | `Name`     | `string` | **Required**. Name of user     |
 | `Email`    | `string` | **Required**. Email of user    |
 | `Password` | `string` | **Required**. Password of user |
+
+Errors
+
+| Status | Message                                | Reason                                                                         |
+| :----- | :------------------------------------- | :----------------------------------------------------------------------------- |
+| `400`  | name, email, password all are required | some thing from name, email, password is missing in body while sending request |
+| `400`  | Duplicate email                        | Email already exist in database                                                |
+
+Success
+
+| Status | Message                       | Data     |
+| :----- | :---------------------------- | :------- |
+| `201`  | successfully created new user | new user |
 
 #### Login user
 
@@ -31,7 +48,18 @@
 | `Email`    | `string` | **Required**. Email of user    |
 | `Password` | `string` | **Required**. Password of user |
 
----
+Errors
+
+| Status | Message                         | Reason                                                                   |
+| :----- | :------------------------------ | :----------------------------------------------------------------------- |
+| `400`  | email and password are required | some thing from email, password is missing in body while sending request |
+| `400`  | Wrong Password                  | Wrong Password                                                           |
+
+Success
+
+| Status | Message                | Data            |
+| :----- | :--------------------- | :-------------- |
+| `200`  | logged in successfully | user, jwt-token |
 
 ---
 
@@ -46,6 +74,12 @@
 | Query  | Type     | Description                           |
 | :----- | :------- | :------------------------------------ |
 | `auth` | `string` | **Required**. Your Authentication key |
+
+Success
+
+| Status | Message | Data  |
+| :----- | :------ | :---- |
+| `200`  | none    | users |
 
 #### Update user
 
@@ -68,7 +102,23 @@
 | `userPassword`   | `string` | **Optional**. current password of user                                    |
 | `updatePassword` | `string` | **Optional**. password to be changed in place of current password of user |
 
-#### delete user
+Errors
+
+| Status | Message                                                    | Reason                                                                                                 |
+| :----- | :--------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| `400`  | name, userClass, userPassword, updatePassword are required | some thing from name, userClass, userPassword, updatePassword is missing in body while sending request |
+| `400`  | User not found                                             | user with id is not found in database check your id                                                    |
+| `400`  | Invalid Password                                           | invalid Password check that                                                                            |
+| `400`  | Invalid class                                              | class can only be 9, 10, 11                                                                            |
+| `400`  | Invalid id                                                 | id that your are passing in query is invalid                                                           |
+
+Success
+
+| Status | Message                   | Data         |
+| :----- | :------------------------ | :----------- |
+| `200`  | user updated successfully | updated user |
+
+#### Delete user
 
 ```http
   DELETE /v1/users/delete-user/${id}
@@ -82,7 +132,17 @@
 | :-------- | :------- | :--------------------------------- |
 | `id`      | `string` | **Required**. id of user to delete |
 
----
+Errors
+
+| Status | Message    | Reason                                       |
+| :----- | :--------- | :------------------------------------------- |
+| `400`  | Invalid id | id that your are passing in query is invalid |
+
+Success
+
+| Status | Message                   | Data         |
+| :----- | :------------------------ | :----------- |
+| `200`  | user deleted successfully | deleted user |
 
 ---
 
@@ -127,8 +187,6 @@
 | Query  | Type     | Description                           |
 | :----- | :------- | :------------------------------------ |
 | `auth` | `string` | **Required**. Your Authentication key |
-
----
 
 ---
 
@@ -206,8 +264,6 @@
 | Parameter | Type     | Description                               |
 | :-------- | :------- | :---------------------------------------- |
 | `id`      | `string` | **Required**. id of contact to be deleted |
-
----
 
 ---
 
@@ -289,8 +345,6 @@
 
 ---
 
----
-
 ### Class
 
 #### Add new class
@@ -369,8 +423,6 @@
 
 ---
 
----
-
 ### Subject
 
 #### Add
@@ -445,8 +497,6 @@
 | Parameter | Type     | Description                           |
 | :-------- | :------- | :------------------------------------ |
 | `id`      | `string` | **Required**. id of subject to delete |
-
----
 
 ---
 
@@ -531,8 +581,6 @@
 
 ---
 
----
-
 ### Pyqs
 
 #### Add
@@ -614,8 +662,6 @@
 
 ---
 
----
-
 ### Ncert Solutions
 
 #### Add
@@ -694,7 +740,5 @@
 | Parameter | Type     | Description                                  |
 | :-------- | :------- | :------------------------------------------- |
 | `id`      | `string` | **Required**. id of ncert solution to delete |
-
----
 
 ---
