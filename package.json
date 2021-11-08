@@ -1,25 +1,25 @@
 {
-	"name": "admin",
+	"name": "estudy-admin",
 	"version": "1.0.0",
 	"private": true,
 	"dependencies": {
+		"@babel/core": "^7.16.0",
 		"@emotion/react": "^11.4.1",
 		"@emotion/styled": "^11.3.0",
-		"@mui/icons-material": "^5.0.1",
-		"@mui/material": "^5.0.1",
+		"@mui/icons-material": "^5.0.0",
+		"@mui/material": "^5.0.0",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/user-event": "^12.1.10",
 		"axios": "^0.21.4",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
-		"react-router-dom": "^5.3.0",
-		"react-scripts": "4.0.3",
-		"sass": "^1.42.1",
-		"web-vitals": "^1.0.1"
+		"react-router-dom": "^5.2.0",
+		"react-scripts": "^3.4.4",
+		"sass": "^1.42.1"
 	},
 	"scripts": {
-		"start": "set PORT=5000 && react-scripts start",
+		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
