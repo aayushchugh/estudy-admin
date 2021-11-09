@@ -22,8 +22,8 @@ function Form({ setSubmit }) {
 			.post(
 				`http://localhost:8000/v1/class/add?auth=${process.env.REACT_APP_API_AUTH}`,
 				{
-					title: title,
-					description: description,
+					title,
+					description,
 				}
 			)
 			.then(data => {

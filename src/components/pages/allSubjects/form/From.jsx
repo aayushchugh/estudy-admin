@@ -22,7 +22,7 @@ function Form({ setSubmit }) {
 			.post(
 				`http://localhost:8000/v1/subject/add?auth=${process.env.REACT_APP_API_AUTH}`,
 				{
-					title: title,
+					title,
 					class: classToAdd,
 				}
 			)
