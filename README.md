@@ -4,10 +4,10 @@ A place where you can get all the notes you want for your class
 
 ## Features
 
--   free notes for all classes
--   free pyq's
--   free e-books
--   free sample papers
+- free notes for all classes
+- free pyq's
+- free e-books
+- free sample papers
 
 ## Design
 
@@ -17,20 +17,16 @@ A place where you can get all the notes you want for your class
 
 ### frontend
 
--   [React](https://reactjs.org/)
--   [Material-UI](https://material-ui.com/)
+- [React](https://reactjs.org/)
+- [Material-UI](https://material-ui.com/)
 
 ### backend
 
--   [Node.js](https://nodejs.org/)
--   [Express.js](https://expressjs.com/)
--   [MongoDB](https://www.mongodb.com/)
--   [Mongoose](https://mongoosejs.com/)
-
-## Api Reference
-
-### [Here](./API-REFERENCE.md)
+- [Node.js](https://nodejs.org/)
+- [Express.js](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [Mongoose](https://mongoosejs.com/)
 
 ## Authors
 
--   [@aayushchugh](https://github.com/aayushchugh/)
+- [@aayushchugh](https://github.com/aayushchugh/)
