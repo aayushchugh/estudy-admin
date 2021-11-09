@@ -34,8 +34,8 @@ function UpdateForm({ setSubmit }) {
 			.patch(
 				`http://localhost:8000/v1/class/update/${id}?auth=${process.env.REACT_APP_API_AUTH}`,
 				{
-					title: title,
-					description: description,
+					title,
+					description,
 				}
 			)
 			.then(data => {

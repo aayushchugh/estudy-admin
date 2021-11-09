@@ -23,9 +23,9 @@ function Form({ setSubmit }) {
 				.post(
 					`http://localhost:8000/v1/testimonial/add?auth=${process.env.REACT_APP_API_AUTH}`,
 					{
-						name: name,
-						content: content,
-						rating: rating,
+						name,
+						content,
+						rating,
 					}
 				)
 				.then(data => {
