@@ -30,7 +30,6 @@ function SubjectTable({ submit, setSubmit }) {
 				`http://localhost:8000/v1/subject/get-all?all=true&auth=${process.env.REACT_APP_API_AUTH}`
 			)
 			.then(data => {
-				console.log(data);
 				setApiData(data.data.data);
 				setSubmit(false);
 			});

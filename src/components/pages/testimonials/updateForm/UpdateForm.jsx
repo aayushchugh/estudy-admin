@@ -43,7 +43,6 @@ function UpdateForm({ submit, setSubmit }) {
 					}
 				)
 				.then(data => {
-					console.log(data);
 					setSubmit(true);
 
 					if (data.data.status === 200) {

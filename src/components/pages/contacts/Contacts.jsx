@@ -82,8 +82,6 @@ function Contacts() {
 				)
 				.then(data => {
 					setSubmit(true);
-					console.log(data.data);
-					console.log(e.target.id.value);
 
 					if (data.data.status === 200) {
 						setSuccess(data.data.message);
